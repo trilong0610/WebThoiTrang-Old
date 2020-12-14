@@ -12,8 +12,6 @@ urlpatterns = [
     path('updateItem/', views.updateItem, name="updateItem"),
     # xem san pham trong danh muc
     path('category/<int:category_id>/', views.view_category.as_view(), name = "category"),
-    # quan li them xoa sua hang hoa
-    path('manage/', views.manage.as_view(), name = "manage"),
-    path('manage/<int:action_id>/', views.manageAction.as_view(), name = "manage_action"),
+
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

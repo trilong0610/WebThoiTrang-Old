@@ -2,8 +2,8 @@ from django.contrib import messages, auth
 from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib import messages
-from .models import Category,Product
-from .forms import ProductForm,CategoryForm
+from product.models import Category,Product
+from product.forms import ProductForm,CategoryForm
 from django.http import HttpResponse
 from order.models import Order,ShippingAddress,OrderItem
 from django.http import JsonResponse
@@ -18,8 +18,8 @@ import json
 def store(request):
 
     if request.user.is_authenticated:
-        customer = request.user.customer
-        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        user = request.user
+        order, created = Order.objects.get_or_create(user=user, complete=False)
         items = order.orderitem_set.all()
         cartItems = order.get_cart_items
     else:

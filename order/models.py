@@ -1,16 +1,16 @@
 from django.db import models
-from customer.models import Customer
-from store.models import Product
+from product.models import Product
+from django.contrib.auth.models import User
 from os import path
 # Create your models here.
 
 class Order(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
     date_ordered = models.DateTimeField(auto_now_add=True)
     complete = models.BooleanField(default=True, null=True, blank=False)
     transaction_id = models.CharField(max_length=100, null=True)
     def __str__(self):
-        return str(self.customer)
+        return str(self.user)
 
     @property
     def get_cart_total(self):
@@ -47,7 +47,7 @@ class OrderItem(models.Model):
         return total
 
 class ShippingAddress(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
     address = models.CharField(max_length=200, null=False)
     city = models.CharField(max_length=200, null=False)

@@ -71,7 +71,7 @@
 {#                Manage button#}
             <div class="form-inline my-2 my-lg-1">
                 {% if user.is_authenticated %}
-                    <a href=" {% url 'manage' %}"class="btn btn-warning">Manage</a>
+                    <a href=" {% url 'manager:home' %}"class="btn btn-warning">Manage</a>
                 {% endif %}
             </div>
 {#                Login Logout#}

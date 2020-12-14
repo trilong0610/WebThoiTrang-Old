@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('customer', '0001_initial'),
+
         ('store', '0002_auto_20201202_1217'),
     ]
 
@@ -21,7 +21,8 @@ class Migration(migrations.Migration):
                 ('date_ordered', models.DateTimeField(auto_now_add=True)),
                 ('complete', models.BooleanField(default=True)),
                 ('transaction_id', models.CharField(max_length=100, null=True)),
-                ('customer', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='customer.customer')),
+                ('customer', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL,
+                                               to='customer.customer')),
             ],
         ),
         migrations.CreateModel(
@@ -33,7 +34,7 @@ class Migration(migrations.Migration):
                 ('state', models.CharField(max_length=200)),
                 ('zipcode', models.CharField(max_length=200)),
                 ('date_added', models.DateTimeField(auto_now_add=True)),
-                ('customer', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='customer.customer')),
+                ('user', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='customer.customer')),
                 ('order', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='order.order')),
             ],
         ),
@@ -44,7 +45,8 @@ class Migration(migrations.Migration):
                 ('quantity', models.IntegerField(blank=True, default=0, null=True)),
                 ('date_add', models.DateTimeField(auto_now_add=True)),
                 ('order', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='order.order')),
-                ('product', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='store.product')),
+                ('product',
+                 models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='store.product')),
             ],
         ),
     ]
