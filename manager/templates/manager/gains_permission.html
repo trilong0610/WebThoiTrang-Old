@@ -1,0 +1,239 @@
+{% extends 'manager/base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box-element">
+                <a class="btn btn-outline-dark" href="{% url 'manager:view_user' %}">&#x2190; Trang Danh Sách Tài Khoản</a>
+                <br>
+                <br>
+            </div>
+            <br>
+
+            <div class="box-element">
+                <div class="cart-row">
+                    <div style="flex:1"></div>
+                    <div style="flex:1"><strong>User</strong></div>
+                    <div style="flex:3"> <strong>Permission</strong> </div>
+                </div>
+                <div class="cart-row">
+                    <div style="flex:1"></div>
+                    <div style="flex:1">{{ user_permission.username }}</div>
+{#                   ---------------Phan  quyen ----------------------------------------------           #}
+                    {#                   ---------------Phan  quyen ----------------------------------------------           #}
+                {#                San pham             #}
+                    <div style="flex:1">
+                            {% if 'product.add_product' in user_permission.get_all_permissions %}
+                                <button type="button" class="btn btn-success btn-circle">Them San Pham</button>
+                            {% else %}
+                                <button type="button" class="btn btn-danger btn-circle">Them San Pham</button>
+                            {% endif %}
+
+                            {% if 'product.view_product' in user_permission.get_all_permissions %}
+                                <button type="button" class="btn btn-success btn-circle">Xem San Pham</button>
+                            {% else %}
+                                <button type="button" class="btn btn-danger btn-circle">Xem San Pham</button>
+                            {% endif %}
+
+                            {% if 'product.change_product' in user_permission.get_all_permissions %}
+                                <button type="button" class="btn btn-success btn-circle">Sua San Pham</button>
+                            {% else %}
+                                <button type="button" class="btn btn-danger btn-circle">Sua San Pham</button>
+                            {% endif %}
+
+                            {% if 'product.delete_product' in user_permission.get_all_permissions %}
+                                <button type="button" class="btn btn-success btn-circle">Xoa San Pham</button>
+                            {% else %}
+                                <button type="button" class="btn btn-danger btn-circle">Xoa San Pham</button>
+                            {% endif %}
+                    </div>
+                {#                Danh Muc             #}
+                    <div style="flex:1">
+                            {% if 'product.add_category' in user_permission.get_all_permissions %}
+                                <button type="button" class="btn btn-success btn-circle">Them Danh Muc</button>
+                            {% else %}
+                                <button type="button" class="btn btn-danger btn-circle">Them Danh Muc</button>
+                            {% endif %}
+
+                            {% if 'product.view_category' in user_permission.get_all_permissions %}
+                                <button type="button" class="btn btn-success btn-circle">Xem Danh Muc</button>
+                            {% else %}
+                                <button type="button" class="btn btn-danger btn-circle">Xem Danh Muc</button>
+                            {% endif %}
+
+                            {% if 'product.change_category' in user_permission.get_all_permissions %}
+                                <button type="button" class="btn btn-success btn-circle">Sua Danh Muc</button>
+                            {% else %}
+                                <button type="button" class="btn btn-danger btn-circle">Sua Danh Muc</button>
+                            {% endif %}
+
+                            {% if 'product.delete_category' in user_permission.get_all_permissions %}
+                                <button type="button" class="btn btn-success btn-circle">Xoa Danh Muc</button>
+                            {% else %}
+                                <button type="button" class="btn btn-danger btn-circle">Xoa Danh Muc</button>
+                            {% endif %}
+                    </div>
+                {#                Don Hang             #}
+                    <div style="flex:1">
+                            {% if 'order.add_order' in user_permission.get_all_permissions %}
+                                <button type="button" class="btn btn-success btn-circle">Them Don hang</button>
+                            {% else %}
+                                <button type="button" class="btn btn-danger btn-circle">Them Don hang</button>
+                            {% endif %}
+
+                            {% if 'order.view_order' in user_permission.get_all_permissions %}
+                                <button type="button" class="btn btn-success btn-circle">Xem Don hang</button>
+                            {% else %}
+                                <button type="button" class="btn btn-danger btn-circle">Xem Don hang</button>
+                            {% endif %}
+
+                            {% if 'order.change_order' in user_permission.get_all_permissions %}
+                                <button type="button" class="btn btn-success btn-circle">Sua Don hang</button>
+                            {% else %}
+                                <button type="button" class="btn btn-danger btn-circle">Sua Don hang</button>
+                            {% endif %}
+
+                            {% if 'order.delete_order' in user_permission.get_all_permissions %}
+                                <button type="button" class="btn btn-success btn-circle">Xoa Don hang</button>
+                            {% else %}
+                                <button type="button" class="btn btn-danger btn-circle">Xoa Don hang</button>
+                            {% endif %}
+                    </div>
+                {#                Chi Tiet Don Hang             #}
+                    <div style="flex:1">
+                            {% if 'order.add_orderitem' in user_permission.get_all_permissions %}
+                                <button type="button" class="btn btn-success btn-circle">Them Chi Tiet Don Hang</button>
+                            {% else %}
+                                <button type="button" class="btn btn-danger btn-circle">Them Chi Tiet Don Hang</button>
+                            {% endif %}
+
+                            {% if 'order.view_orderitem' in user_permission.get_all_permissions %}
+                                <button type="button" class="btn btn-success btn-circle">Xem Chi Tiet Don Hang</button>
+                            {% else %}
+                                <button type="button" class="btn btn-danger btn-circle">Xem Chi Tiet Don Hang</button>
+                            {% endif %}
+
+                            {% if 'order.change_orderitem' in user_permission.get_all_permissions %}
+                                <button type="button" class="btn btn-success btn-circle">Sua Chi Tiet San Pham</button>
+                            {% else %}
+                                <button type="button" class="btn btn-danger btn-circle">Sua Chi Tiet San Pham</button>
+                            {% endif %}
+
+                            {% if 'order.delete_orderitem' in user_permission.get_all_permissions %}
+                                <button type="button" class="btn btn-success btn-circle">Xoa Chi Tiet San Pham</button>
+                            {% else %}
+                                <button type="button" class="btn btn-danger btn-circle">Xoa Chi Tiet San Pham</button>
+                            {% endif %}
+                    </div>
+                {#                Giao hang             #}
+                    <div style="flex:1">
+                            {% if 'order.add_shippingaddress' in user_permission.get_all_permissions %}
+                                <button type="button" class="btn btn-success btn-circle">Them Chi Tiet Giao Hang</button>
+                            {% else %}
+                                <button type="button" class="btn btn-danger btn-circle">Them Chi Tiet Giao Hang</button>
+                            {% endif %}
+
+                            {% if 'order.view_shippingaddress' in user_permission.get_all_permissions %}
+                                <button type="button" class="btn btn-success btn-circle">Xem Chi Tiet Giao Hang</button>
+                            {% else %}
+                                <button type="button" class="btn btn-danger btn-circle">Xem Chi Tiet Giao Hang</button>
+                            {% endif %}
+
+                            {% if 'order.change_shippingaddress' in user_permission.get_all_permissions %}
+                                <button type="button" class="btn btn-success btn-circle">Sua Chi Tiet Giao Hang</button>
+                            {% else %}
+                                <button type="button" class="btn btn-danger btn-circle">Sua Chi Tiet Giao Hang</button>
+                            {% endif %}
+
+                            {% if 'order.delete_shippingaddress' in user_permission.get_all_permissions %}
+                                <button type="button" class="btn btn-success btn-circle">Xoa Chi Tiet Giao Hang</button>
+                            {% else %}
+                                <button type="button" class="btn btn-danger btn-circle">Xoa Chi Tiet Giao Hang</button>
+                            {% endif %}
+                    </div>
+                {#                Nhap hang             #}
+                    <div style="flex:1">
+                            {% if 'purchase.add_purchaseproduct' in user_permission.get_all_permissions %}
+                                <button type="button" class="btn btn-success btn-circle">Them Don Nhap Hang</button>
+                            {% else %}
+                                <button type="button" class="btn btn-danger btn-circle">Them Don Nhap Hang</button>
+                            {% endif %}
+
+                            {% if 'purchase.view_purchaseproduct' in user_permission.get_all_permissions %}
+                                <button type="button" class="btn btn-success btn-circle">Xem Don Nhap Hang</button>
+                            {% else %}
+                                <button type="button" class="btn btn-danger btn-circle">Xem Don Nhap Hang</button>
+                            {% endif %}
+
+                            {% if 'purchase.change_purchaseproduct' in user_permission.get_all_permissions %}
+                                <button type="button" class="btn btn-success btn-circle">Sua Don Nhap Hang</button>
+                            {% else %}
+                                <button type="button" class="btn btn-danger btn-circle">Sua Don Nhap Hang</button>
+                            {% endif %}
+
+                            {% if 'purchase.delete_purchaseproduct' in user_permission.get_all_permissions %}
+                                <button type="button" class="btn btn-success btn-circle">Xoa Don Nhap Hang</button>
+                            {% else %}
+                                <button type="button" class="btn btn-danger btn-circle">Xoa Don Nhap Hangm</button>
+                            {% endif %}
+                    </div>
+                {#                Nha Cung Cap             #}
+                    <div style="flex:1">
+                            {% if 'supplier.add_supplier' in user_permission.get_all_permissions %}
+                                <button type="button" class="btn btn-success btn-circle">Them Nha Cung Cap</button>
+                            {% else %}
+                                <button type="button" class="btn btn-danger btn-circle">Them Nha Cung Cap</button>
+                            {% endif %}
+
+                            {% if 'supplier.view_supplier' in user_permission.get_all_permissions %}
+                                <button type="button" class="btn btn-success btn-circle">Xem Nha Cung Cap</button>
+                            {% else %}
+                                <button type="button" class="btn btn-danger btn-circle">Xem Nha Cung Cap</button>
+                            {% endif %}
+
+                            {% if 'supplier.change_supplier' in user_permission.get_all_permissions %}
+                                <button type="button" class="btn btn-success btn-circle">Sua Nha Cung Cap</button>
+                            {% else %}
+                                <button type="button" class="btn btn-danger btn-circle">Sua Nha Cung Cap</button>
+                            {% endif %}
+
+                            {% if 'supplier.delete_supplier' in user_permission.get_all_permissions %}
+                                <button type="button" class="btn btn-success btn-circle">Xoa Nha Cung Cap</button>
+                            {% else %}
+                                <button type="button" class="btn btn-danger btn-circle">Xoa Nha Cung Cap</button>
+                            {% endif %}
+                    </div>
+                {#                Nguoi Dung             #}
+                    <div style="flex:1">
+                            {% if 'auth.add_user' in user_permission.get_all_permissions %}
+                                <button type="button" class="btn btn-success btn-circle">Them Tai Khoan</button>
+                            {% else %}
+                                <button type="button" class="btn btn-danger btn-circle">Them Tai Khoan</button>
+                            {% endif %}
+
+                            {% if 'auth.view_user' in user_permission.get_all_permissions %}
+                                <button type="button" class="btn btn-success btn-circle">Xem Tai Khoan</button>
+                            {% else %}
+                                <button type="button" class="btn btn-danger btn-circle">Xem Tai Khoan</button>
+                            {% endif %}
+
+                            {% if 'auth.change_user' in user_permission.get_all_permissions %}
+                                <button type="button" class="btn btn-success btn-circle">Sua Tai Khoan</button>
+                            {% else %}
+                                <button type="button" class="btn btn-danger btn-circle">Sua Tai Khoan</button>
+                            {% endif %}
+
+                            {% if 'auth.delete_user' in user_permission.get_all_permissions %}
+                                <button type="button" class="btn btn-success btn-circle">Xoa Tai Khoan</button>
+                            {% else %}
+                                <button type="button" class="btn btn-danger btn-circle">Xoa Tai Khoan</button>
+                            {% endif %}
+                    </div>
+{#            Quyen trong model category    /#}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

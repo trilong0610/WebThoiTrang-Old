@@ -1,6 +1,6 @@
 from django.contrib import auth
 from django.contrib.auth import decorators
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import render, redirect
 from django.views import View
 from product.models import Product
@@ -59,8 +59,8 @@ class add_product(LoginRequiredMixin,View):
         else:
             return HttpResponse("Sai cu phap")
 
-# Phan Quyen
-class user_Permission(LoginRequiredMixin,View):
+# Xem danh sach User
+class view_User(LoginRequiredMixin,View):
     def get(self,request):
         user = User.objects.all()
         app_name_en = {'order.view_order','order.add_order','order.change_order','order.delete_order',
@@ -73,3 +73,12 @@ class user_Permission(LoginRequiredMixin,View):
                     }
         context = {'user': user, 'app_name_en':app_name_en}
         return render(request, 'manager/user_permission.html', context)
+
+# Phan quyen cho user
+class gains_permission(View):
+    # permission_required = ('auth.view_user', 'auth.change_user','auth.delete_user')
+    def get(self, request, user_id):
+        user = User.objects.get(id=user_id)
+        return render(request, 'manager/gains_permission.html', {'user_permission':user})
+
+

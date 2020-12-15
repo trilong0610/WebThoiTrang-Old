@@ -126,7 +126,7 @@
           </ul>
             <div class="form-inline my-2 my-lg-1">
                 {% if perms.user.change_user %}
-                    <a href="#"class="btn btn-warning">Phân Quyền</a>
+                    <a href="{% url 'manager:view_user' %}"class="btn btn-warning">Phân Quyền</a>
                 {% endif %}
             </div>
             <div class="form-inline my-2 my-lg-1">
