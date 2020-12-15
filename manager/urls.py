@@ -10,5 +10,7 @@ urlpatterns = [
 # quan li them xoa sua hang hoa
     path('add_category/', views.add_category.as_view(), name = "add_category"),
     path('add_product/', views.add_product.as_view(), name = "add_product"),
+    # Phan quyen
+    path('permission/', views.user_Permission.as_view(), name = "user_permission"),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
