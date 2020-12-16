@@ -1,4 +1,4 @@
-console.log("Loadded JS")
+console.log("Loadded permission.js")
 
 var updateBtns = document.getElementsByClassName('update-cart')
 for (i = 0; i < updateBtns.length; i++){
@@ -9,7 +9,7 @@ for (i = 0; i < updateBtns.length; i++){
 
         console.log('USER:', user)
         if(user == 'AnonymousUser'){
-            console.log("User is not authenticated")
+            console.log("user is not authenticated")
         }
         else {
             updateUserOrder(productID, action)
@@ -17,8 +17,10 @@ for (i = 0; i < updateBtns.length; i++){
     })
 }
 
+
+
 function updateUserOrder(productID, action){
-    console.log('User is authenticated, sending data..')
+    console.log('user is authenticated, sending data..')
 
     var url = '/updateItem/'
 
@@ -39,3 +41,4 @@ function updateUserOrder(productID, action){
         window.location.reload(true)
     })
 }
+

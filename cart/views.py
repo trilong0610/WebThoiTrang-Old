@@ -1,10 +1,12 @@
+from django.contrib.auth.models import User
 from django.shortcuts import render
+
 from order.models import Order,OrderItem
 # Create your views here.
 def cart(request):
     if request.user.is_authenticated:
-        customer = request.user.customer
-        order, created = Order.objects.get_or_create( customer=customer, complete=False)
+        customer = User.objects.get(pk = request.user.id)
+        order, created = Order.objects.get_or_create( user = request.user, complete=False)
         # order = Order.objects.get(pk = customer)
         items = order.orderitem_set.all()
         cartItems = order.get_cart_items

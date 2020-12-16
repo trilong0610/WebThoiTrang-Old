@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- CSS -->
-
 {#    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">#}
 {#    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>#}
 {#    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>#}
@@ -125,8 +124,8 @@
 {#      </li>#}
           </ul>
             <div class="form-inline my-2 my-lg-1">
-                {% if perms.user.change_user %}
-                    <a href="{% url 'manager:view_user' %}"class="btn btn-warning">Phân Quyền</a>
+                {% if perms.auth.view_user %}
+                    <a href="{% url 'manager:view_user' %}"class="btn btn-warning">Quan Li User</a>
                 {% endif %}
             </div>
             <div class="form-inline my-2 my-lg-1">
@@ -162,7 +161,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/permission.js' %}"></script>
 
 </body>
 </html>

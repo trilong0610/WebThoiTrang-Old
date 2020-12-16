@@ -12,6 +12,7 @@ urlpatterns = [
     path('add_product/', views.add_product.as_view(), name = "add_product"),
     # Phan quyen
     path('view_user/', views.view_User.as_view(), name = "view_user"),
-    path('gains_permission/<int:user_id>', views.gains_permission.as_view(), name = "gains_permission")
+    path('gains_permission/<int:user_id>', views.gains_permission.as_view(), name = "view_permission"),
+    path('gains_permission/', views.updatePermission, name = "gains_permission"),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

@@ -1,5 +1,8 @@
+import json
+
 from django.contrib import auth
 from django.contrib.auth import decorators
+from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import render, redirect
 from django.views import View
@@ -8,10 +11,12 @@ from product.forms import ProductForm,CategoryForm
 from supplier.models import Supplier
 from supplier.forms import  SupplierForm
 from purchase.forms import PurchaseProductForm
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Permission
 from datetime import datetime
 # Create your views here.
-from  django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
+
+
 @decorators.login_required(login_url='/login/')
 def home(request):
     perm = ["A"]
@@ -46,6 +51,7 @@ class add_category(LoginRequiredMixin,View):
             return redirect('/manager/')
         else:
             return HttpResponse("Sai cu phap")
+
 class add_product(LoginRequiredMixin,View):
     login_url = '/login/'
     def get(self, request):
@@ -59,26 +65,47 @@ class add_product(LoginRequiredMixin,View):
         else:
             return HttpResponse("Sai cu phap")
 
-# Xem danh sach User
-class view_User(LoginRequiredMixin,View):
+# Xem danh sach user
+class view_User(PermissionRequiredMixin,View):
+    permission_required = ('auth.view_user')
     def get(self,request):
-        user = User.objects.all()
-        app_name_en = {'order.view_order','order.add_order','order.change_order','order.delete_order',
-                    'order.view_orderitem','order.add_orderitem','order.change_orderitem','order.delete_orderitem',
-                    'order.view_shippingaddress','order.add_shippingaddress','order.change_shippingaddress','order.delete_shippingaddress',
-                    'product.view_product','product.add_product','product.change_product','product.delete_product',
-                    'product.view_category','product.add_category','product.change_category','product.delete_category',
-                    'purchase.view_purchaseproduct','purchase.add_purchaseproduct','purchase.change_purchaseproduct','purchase.delete_purchaseproduct',
-                    'supplier.view_supplier','supplier.add_supplier','supplier.change_supplier','supplier.delete_supplier'
-                    }
-        context = {'user': user, 'app_name_en':app_name_en}
-        return render(request, 'manager/user_permission.html', context)
+        # Neu la superuser moi cho vao trang phan quyen
+            list_users = User.objects.all()
+            # Gui OBJ User hien tai de check permission
+            request_user = User.objects.get(id = request.user.id)
+            context = {'users': list_users, 'request_user': request_user}
+            return render(request, 'manager/view_user.html', context)
 
-# Phan quyen cho user
-class gains_permission(View):
-    # permission_required = ('auth.view_user', 'auth.change_user','auth.delete_user')
+# Xem quyen user
+class gains_permission(LoginRequiredMixin,View):
+    login_url = '/login/'
+    permission_required('auth.change_user')
     def get(self, request, user_id):
-        user = User.objects.get(id=user_id)
-        return render(request, 'manager/gains_permission.html', {'user_permission':user})
+        # Neu la superuser moi cho vao trang phan quyen
+        if request.user.is_superuser:
+            user = User.objects.get(id=user_id)
+            return render(request, 'manager/gains_permission.html', {'user_permission':user})
+        else:
+            return HttpResponse("Ban khong co quyen truy cap")
 
+# Thay doi quyen user(chi user co quyen thay doi thong tin user moi duoc vao)
+@permission_required('auth.change_user')
+def updatePermission(request):
+        data = json.loads(request.body)
+        user = data['user']
+        permission = data['permission']
+        action = data['action']
+        print('user:', user)
+        print('permission:', permission)
+        print('action:', action)
+        user_change_perm = User.objects.get(username = user)
+        if action == 'add':
+            permission_add = Permission.objects.get(name=permission)
+            user_change_perm.user_permissions.add(permission_add)
+            return JsonResponse('Permission was add', safe=False)
+        elif action == 'remove':
+            permission_add = Permission.objects.get(name=permission)
+            user_change_perm.user_permissions.remove(permission_add)
+            return JsonResponse('Permission was remove', safe=False)
+        return JsonResponse('Permission changged failed', safe=False)
 

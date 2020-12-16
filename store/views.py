@@ -16,7 +16,6 @@ import json
 # Xem hang hoa
 @login_required(login_url='login')
 def store(request):
-
     if request.user.is_authenticated:
         user = request.user
         order, created = Order.objects.get_or_create(user=user, complete=False)
@@ -42,8 +41,8 @@ def store(request):
 class view_category(View):
     def get(self, request, category_id):
         if request.user.is_authenticated:
-            customer = request.user.customer
-            order, created = Order.objects.get_or_create(customer=customer, complete=False)
+            customer = request.user.id
+            order, created = Order.objects.get_or_create(user_id=customer, complete=False)
             items = order.orderitem_set.all()
             cartItems = order.get_cart_items
         else:
@@ -99,18 +98,18 @@ def logout(request):
     auth.logout(request)
     messages.success(request, 'Profile details updated.')
     return redirect("/")
+
 # Them item vao gio hang
 def updateItem(request):
     data = json.loads(request.body)
     productID = data['productID']
     action = data['action']
-
     print('Action:', action)
     print('productId:', productID)
 
-    customer = request.user.customer
+    customer = request.user
     product = Product.objects.get(id = productID)
-    order, created = Order.objects.get_or_create(customer=customer, complete=False)
+    order, created = Order.objects.get_or_create(user = customer, complete=False)
 
     orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
 
